@@ -36,5 +36,5 @@ An expense tracking web application built with React, designed to help users man
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/expense-tracker.git
+   git clone https://github.com/Sisamkele022/EXPENSETRACKERPP.git
    cd expense-tracker
