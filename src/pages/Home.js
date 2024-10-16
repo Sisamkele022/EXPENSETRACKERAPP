@@ -1,7 +1,13 @@
-// src/pages/Home.js
+// src/pages/Home.js (modified to use Material-UI)
 import React, { useContext } from 'react';
-import ExpenseContext from '../context/ExpenseContext';
 import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ExpenseContext from '../context/ExpenseContext';
+
+
 
 const Home = () => {
   const { state, dispatch } = useContext(ExpenseContext);
@@ -14,16 +20,20 @@ const Home = () => {
   return (
     <div>
       <h1>Expense Tracker</h1>
-      <Link to="/add">Add Expense</Link>
-      <ul>
+      <Link to="/add">
+        <Button variant="contained" color="primary">Add Expense</Button>
+      </Link>
+      <List>
         {expenses.map((expense) => (
-          <li key={expense.id}>
-            <span>{expense.description} - ${expense.amount}</span>
-            <Link to={`/edit/${expense.id}`}>Edit</Link>
-            <button onClick={() => deleteExpense(expense.id)}>Delete</button>
-          </li>
+          <ListItem key={expense.id}>
+            <ListItemText primary={`${expense.description} - $${expense.amount}`} />
+            <Button variant="outlined" onClick={() => deleteExpense(expense.id)}>Delete</Button>
+            <Link to={`/edit/${expense.id}`}>
+              <Button variant="outlined">Edit</Button>
+            </Link>
+          </ListItem>
         ))}
-      </ul>
+      </List>
     </div>
   );
 };

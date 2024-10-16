@@ -1,11 +1,10 @@
-// src/context/ExpenseContext.js
-import { createContext, useReducer } from 'react';
+import { createContext, useReducer, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 const ExpenseContext = createContext();
 
 const initialState = {
-  expenses: [],
+  expenses: JSON.parse(localStorage.getItem('expenses')) || [],
 };
 
 const expenseReducer = (state, action) => {
@@ -28,6 +27,11 @@ const expenseReducer = (state, action) => {
 
 export const ExpenseProvider = ({ children }) => {
   const [state, dispatch] = useReducer(expenseReducer, initialState);
+
+  // Update local storage whenever expenses change
+  useEffect(() => {
+    localStorage.setItem('expenses', JSON.stringify(state.expenses));
+  }, [state.expenses]);
 
   return (
     <ExpenseContext.Provider value={{ state, dispatch }}>
